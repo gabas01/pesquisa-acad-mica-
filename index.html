@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compartilhe sua Experiência - UNIALFA</title>
+    <style>
+        :root {
+            --primary-color: #2E8B57; 
+            --bg-color: #F4F7F6;
+            --text-color: #333333;
+            --border-color: #DDDDDD;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 650px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        p.subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .row {
+            display: flex;
+            gap: 25px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #267347;
+        }
+
+        /* Estilos da Seção de Sucesso */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        #success-message h2 {
+            color: #2E8B57;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        #team-info {
+            display: none;
+            margin-top: 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Logo Unialfa - Sem Bordas */
+        #unialfa-logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #unialfa-logo {
+            max-width: 220px;
+            height: auto;
+            border: none;
+            display: inline-block;
+        }
+
+        #team-info h2 {
+            font-size: 22px;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Grid de Cartões */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px 25px; 
+            margin-top: 20px;
+        }
+
+        .team-member {
+            background-color: #F8FAF9;
+            padding: 50px 20px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+            position: relative; 
+        }
+
+        .avatar {
+            position: absolute;
+            top: -40px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .team-member p {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .team-member a {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 14px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .team-member a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade para celular */
+        @media (max-width: 650px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 60px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="form-container">
+        <h1>Co-Criando Soluções</h1>
+        <p class="subtitle">Somos uma equipe de pesquisa acadêmica da faculdade UNIALFA e estamos analisando desafios operacionais nas empresas. Adoraríamos ouvir sua visão profissional para que possamos construir soluções cada vez mais inteligentes e eficientes.</p>
+
+        <form id="feedback-form" action="https://formspree.io/f/xqedndjo" method="POST">
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="empresa">Qual é a sua empresa?</label>
+                    <input type="text" id="empresa" name="empresa" placeholder="Ex: Acme Corp" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Como podemos te chamar?</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cargo">Qual é o seu cargo ou área de atuação?</label>
+                <input type="text" id="cargo" name="cargo" placeholder="Ex: Gestor de Operações" required>
+            </div>
+
+            <div class="form-group">
+                <label for="problemas">No seu dia a dia profissional, quais são os maiores desafios ou gargalos que você enfrenta?</label>
+                <textarea id="problemas" name="problemas" placeholder="Conte-nos um pouco sobre a situação..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="causas">Na sua visão, por que você acha que essas situações costumam ocorrer?</label>
+                <textarea id="causas" name="causas" placeholder="Falta de tempo, processos manuais, falha na comunicação, etc..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="consequencias">E que tipo de impacto ou consequências esses desafios geram para a equipe ou para a empresa?</label>
+                <textarea id="consequencias" name="consequencias" placeholder="Atrasos em entregas, custos imprevistos, estresse na equipe..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="quando">Quando você começou a notar que isso era um problema que precisava de atenção?</label>
+                <input type="text" id="quando" name="quando" placeholder="Ex: Nos últimos 6 meses, no fechamento do ano..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="solucao">O que vocês já tentaram fazer para contornar ou resolver essa situação?</label>
+                <textarea id="solucao" name="solucao" placeholder="Usamos planilhas, contratamos mais pessoas, improvisamos com..."></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn">Enviar Experiência</button>
+        </form>
+    </div>
+
+    <div class="container" id="success-message">
+        <h2>Muito obrigado! 🎉</h2>
+        <p>Agradecemos imensamente por compartilhar seu tempo e sua visão com a gente.<br>Entender o seu cenário nos ajuda a pensar em soluções cada vez melhores.</p>
+    </div>
+
+    <div class="container" id="team-info">
+        
+        <div id="unialfa-logo-container">
+            <img src="https://i.postimg.cc/q6dtvXgP/image.png" alt="UNIALFA Logo" id="unialfa-logo">
+        </div>
+
+        <h2>A Equipe de Pesquisa</h2>
+        
+        <div class="team-grid">
+            
+            <div class="team-member">
+                <div class="avatar"><img src="https://i.postimg.cc/75NN8ht3/image.jpg" alt="Gabriel"></div>
+                <h3>Gabriel Gaspar Belarmino de Oliveira</h3>
+                <p>Engenharia Civil - 4º Período</p>
+                <p>Modelador</p>
+                <a href="https://www.linkedin.com/in/gabriel-gaspar-oliveira-1632a8227/" target="_blank">LinkedIn</a>
+            </div>
+
+            <div class="team-member">
+                <div class="avatar"><img src="https://i.postimg.cc/Z09jBTnF/image.jpg" alt="Brunielly"></div>
+                <h3>Brunielly Teixeira Arraes Marques</h3>
+                <p>Engenharia Civil - 4º Período</p>
+                <p>Analista de Departamento Pessoal</p>
+            </div>
+
+            <div class="team-member">
+                <div class="avatar"><img src="https://i.postimg.cc/HjJ3cpn2/image.jpg" alt="Zander"></div>
+                <h3>Zander Matias Fernandes</h3>
+                <p>Engenharia Civil - 4º Período</p>
+                <p>Seg. Patrimonial</p>
+            </div>
+
+            <div class="team-member">
+                <div class="avatar"><img src="https://i.postimg.cc/G9Bz8ctK/image.jpg" alt="Alexandre"></div>
+                <h3>Alexandre Mendes Ramos</h3>
+                <p>Engenharia Mecânica - 4º Período</p>
+                <p>Técnico em Manutenção de motores a Diesel</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('feedback-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            
+            submitBtn.innerText = "Enviando..."; 
+
+            const data = new FormData(event.target);
+
+            try {
+                const response = await fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    document.getElementById('form-container').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('team-info').style.display = 'block';
+                    window.scrollTo(0, 0); 
+                } else {
+                    alert("Ops! Ocorreu um problema ao enviar. Tente novamente.");
+                    submitBtn.innerText = "Enviar Experiência";
+                }
+            } catch (error) {
+                alert("Ops! Ocorreu um problema de conexão. Verifique sua internet.");
+                submitBtn.innerText = "Enviar Experiência";
+            }
+        });
+    </script>
+
+</body>
+</html>
